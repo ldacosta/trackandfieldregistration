@@ -14,106 +14,724 @@
 <meta http-equiv="content-style-type" content="text/css">
 <meta http-equiv="expires" content="0">
 <link rel="stylesheet" href="style.css">
+<script language="JavaScript" type="text/javascript">
+<!--
+
+//-->
+function toggleTable(eventName) {
+    var lTable = document.getElementById(eventName);
+    lTable.style.display = (lTable.style.display == "table") ? "none" : "table";
+}
+</script>
+
 <meta >
 </head>
 <body>
 <table border="border" width="100%">
-<tr>
-	<td width="100%" align="center" bgcolor="#0000FF"><h1>Elginburg (ELG)</h1></td>
-</tr>
-<!-- Open Events -->
-<tr>
-	<td width="100%" align="center" bgcolor="#4D4D4D"><h2>Open Events</h2></td>
-</tr>
-<tr>
-	<td>
-	<table border="border" width="100%">
-		<tr width="100%"><th>Event 1: 3000 m. Boys</th><th>Event 2: 3000 m. Girls</th></tr>
-		<tr>
-			<td width="50%" align="center" bgcolor="#4D4D4D">
-				<table width="100%">
-					<tr><th align="left">First Name</th><th align="left">Last Name</th>
-					<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
-					<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-					<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-					<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-				</table>
-			
-			</td>
-			<td width="50%" align="center" bgcolor="#4D4D4D">
-				<table width="100%">
-					<tr><th align="left">First Name</th><th align="left">Last Name</th>
-					<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
-					<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-					<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-					<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-				</table>
-			
-			</td>
-		</tr>
-	</table>
-	</td>
-</tr>
-<!-- Midget Events -->
-<tr>
-	<td width="100%" align="center" bgcolor="#4D4D4D"><h2>Midget Events (Grade 8, 13 years-old)</h2></td>
-</tr>
-<tr>
-	<td>
-		<table border="border" width="100%">
-			<tr width="100%"><th>Event 3: 100 m. Midget Boys</th><th>Event 4: 100 m. Midget Girls</th></tr>
-			<tr>
-				<td width="50%" align="center" bgcolor="#4D4D4D">
-					<table width="100%">
-						<tr><th align="left">First Name</th><th align="left">Last Name</th>
-						<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-					</table>
-				
-				</td>
-				<td width="50%" align="center" bgcolor="#4D4D4D">
-					<table width="100%">
-						<tr><th align="left">First Name</th><th align="left">Last Name</th>
-						<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-					</table>
-				</td>
-			</tr>
-		</table>
-	</td>
-</tr>
-<tr>
-	<td>
-		<table border="border" width="100%">
-			<tr width="100%"><th>Event 15: 200 m. Midget Boys</th><th>Event 16: 200 m. Midget Girls</th></tr>
-			<tr>
-				<td width="50%" align="center" bgcolor="#4D4D4D">
-					<table width="100%">
-						<tr><th align="left">First Name</th><th align="left">Last Name</th>
-						<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-					</table>
-				
-				</td>
-				<td width="50%" align="center" bgcolor="#4D4D4D">
-					<table width="100%">
-						<tr><th align="left">First Name</th><th align="left">Last Name</th>
-						<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-						<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
-					</table>
-				</td>
-			</tr>
-		</table>
-	</td>
-</tr>
+			 <tr>
+			 		 <td width="100%" align="center" bgcolor="#0000FF" colspan=2><h1>Elginburg (ELG)</h1></td>
+			 </tr>
+			 <tr>
+			 		 <td width="100%" align="center" bgcolor="#0000FF" colspan=2><h2>Select Events to Show</h2></td>
+			 </tr>
+			 <tr>
+			 		 <td width="50%" align="left">
+							 <input type="checkbox" name="showEvents" value="show3000m" onclick="toggleTable('3000m');" >Events 1 and 2: <strong>3000 m.</strong><br>
+					 		 <input type="checkbox" name="showEvents" value="show100m" onclick="toggleTable('100m');" >Events 3 to 8: <strong>100 m.</strong><br>
+					 		 <input type="checkbox" name="showEvents" value="show400m" onclick="toggleTable('400m');" >Events 9 to 14: <strong>400 m.</strong><br>
+					 		 <input type="checkbox" name="showEvents" value="show200m" onclick="toggleTable('200m');" >Events 15 to 20: <strong>100 m.</strong><br>
+					 		 <input type="checkbox" name="showEvents" value="show800m" onclick="toggleTable('800m');" >Events 21 to 26: <strong>800 m.</strong><br>
+					 		 <input type="checkbox" name="showEvents" value="show1500m" onclick="toggleTable('1500m');" >Events 27 to 32: <strong>1500 m.</strong><br>
+					 </td>
+			 		 <td width="50%" align="left">
+					 		 <input type="checkbox" name="showEvents" value="showHighJump" onclick="toggleTable('HighJump');" >Events 40 to 45: <strong>High Jump</strong><br>
+					 		 <input type="checkbox" name="showEvents" value="showLongJump" onclick="toggleTable('LongJump');" >Events 46 to 51: <strong>Long Jump</strong><br>
+					 		 <input type="checkbox" name="showEvents" value="showTripleJump" onclick="toggleTable('TripleJump');" >Events 52 to 57: <strong>Triple Jump</strong><br>
+					 		 <input type="checkbox" name="showEvents" value="showShotPut" onclick="toggleTable('ShotPut');" >Events 58 to 63: <strong>Shot Put</strong><br>
+					 </td>
+			 </tr>
+</table>
+	
+	<!-- 3000 m. -->
+	<table id="3000m" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" bgcolor="#4D4D4D" colspan=2><h2>Events 1 and 2: 3000 m.</h2></td>
+			 </tr>
+			 <!-- Open -->
+			 <tr width="100%"><th>Event 1: Open Boys</th><th>Event 2:  Open Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- 100 m. -->
+<table id="100m" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" bgcolor="#4D4D4D" colspan=2><h2>Events 3 to 8: 100 m.</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 3: Midget (Grade 8, 13 years-old) Boys</th><th>Event 4:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 5: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 6:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 7: Atom (Grade 4, 9 years-old) Boys</th><th>Event 8: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- 400 m. -->
+<table id="400m" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" colspan=2><h2>Events 9 to 14: 400 m.</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 9: Midget (Grade 8, 13 years-old) Boys</th><th>Event 10:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 11: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 12:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 13: Atom (Grade 4, 9 years-old) Boys</th><th>Event 14: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- 200 m. -->
+<table id="200m" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" colspan=2><h2>Events 15 to 20: 200 m.</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 15: Midget (Grade 8, 13 years-old) Boys</th><th>Event 16:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 17: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 18:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 19: Atom (Grade 4, 9 years-old) Boys</th><th>Event 20: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- 800 m. -->
+<table id="800m" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" colspan=2><h2>Events 21 to 26: 800 m.</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 21: Midget (Grade 8, 13 years-old) Boys</th><th>Event 22:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 23: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 24:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 25: Atom (Grade 4, 9 years-old) Boys</th><th>Event 26: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- 1500 m. -->
+<table id="1500m" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" colspan=2><h2>Events 27 to 32: 1500 m.</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 27: Midget (Grade 8, 13 years-old) Boys</th><th>Event 28:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 29: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 30:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 31: Atom (Grade 4, 9 years-old) Boys</th><th>Event 32: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- High Jump -->
+<table id="HighJump" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" colspan=2><h2>Events 40 to 45: High Jump</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 40: Midget (Grade 8, 13 years-old) Boys</th><th>Event 41:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 42: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 43:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 44: Atom (Grade 4, 9 years-old) Boys</th><th>Event 45: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- Long Jump -->
+<table id="LongJump" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" colspan=2><h2>Events 46 to 51: Long Jump</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 46: Midget (Grade 8, 13 years-old) Boys</th><th>Event 47:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 48: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 49:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 50: Atom (Grade 4, 9 years-old) Boys</th><th>Event 51: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- Triple Jump -->
+<table id="TripleJump" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" colspan=2><h2>Events 52 to 57: Triple Jump</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 52: Midget (Grade 8, 13 years-old) Boys</th><th>Event 53:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 54: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 55:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 56: Atom (Grade 4, 9 years-old) Boys</th><th>Event 57: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+<!-- Shot Put -->
+<table id="ShotPut" border="border" width="100%" style="display:none">
+			 <tr>
+			 		 <td width="100%" align="center" colspan=2><h2>Events 58 to 63: Shot Put</h2></td>
+			 </tr>
+			 <!-- Midget -->
+			 <tr width="100%"><th>Event 58: Midget (Grade 8, 13 years-old) Boys</th><th>Event 59:  Midget (Grade 8, 13 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Bantam -->
+			 <tr width="100%"><th>Event 60: Bantam (Grade 6, 11 years-old) Boys</th><th>Event 61:  Bantam (Grade 6, 11 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+			 <!-- Atom -->
+			 <tr width="100%"><th>Event 62: Atom (Grade 4, 9 years-old) Boys</th><th>Event 63: Atom (Grade 4, 9 years-old) Girls</th></tr>
+			 <tr>
+			 		 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+							 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>
+  				 </td>
+  				 <td width="50%" align="center" bgcolor="#4D4D4D">
+  				 		 <table width="100%">
+  						 				<tr><th align="left">First Name</th><th align="left">Last Name</th>
+  										<tr><td><input type="text" name="fname" size="20" maxlength="20" /></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  										<tr><td><input type="text" name="fname"></td><td><input type="text" name="lname"></td>
+  						 </table>  			
+  				 </td>
+			 </tr>
+</table>
+
+
+
+
 <!-- All good, send! -->
 <tr>
 	<td width="100%" align="center" bgcolor="#4D4D4D"><button type="button"><h2>Send registration (by email to John Hall)</h2></button></td>
