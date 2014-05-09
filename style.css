@@ -57,6 +57,11 @@ strong {
     text-transform: uppercase;
 }
 
+warning {
+    color: #c00;
+    font-style: italic;
+}
+
 li {
     color: #900;
     font-style: italic;
@@ -65,3 +70,16 @@ li {
 table {
     background-color: #ccc;
 }
+
+[class="badinput"]
+{
+ color: red;
+ background:yellow;
+    font-style: italic;
+    font-size: 1em;
+}
+
+[class="goodinput"]
+{
+}
+
