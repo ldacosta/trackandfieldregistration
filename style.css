@@ -69,6 +69,24 @@ table {
     background-color: #ccc;
 }
 
+[class="incompleteEvent"]
+{
+ color: red;
+ background:yellow;
+    font-style: italic;
+    font-size: 1em;
+}
+
+[class="completeEvent"]
+{
+ background:green;
+}
+
+[class="toIgnoreEvent"]
+{
+ background:gray;
+}
+
 [class="badinput"]
 {
  color: red;
