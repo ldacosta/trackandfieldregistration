@@ -77,6 +77,14 @@ table {
     font-size: 1em;
 }
 
+[class="emptyEvent"]
+{
+ color: white;
+ background:red;
+    font-style: italic;
+    font-size: 1em;
+}
+
 [class="completeEvent"]
 {
  background:green;
