@@ -6,41 +6,39 @@
 */
 
 <!--  -->
+var eventNames = ["100m","200m","400m","800m","1500m","3000m","HighJump","LongJump","TripleJump","ShotPut"];
+var ageGroups = ["midget", "atom", "bantam"];
+var genders = ["boys", "girls"];
+// hashtable containing all registrations. 
+// Let's initialize the whole thing.
+var registration = {}; 
+for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
+		registration[eventNames[eventIdx]] = {};
+		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
+				registration[eventNames[eventIdx]][ageGroups[ageIdx]] = {};
+				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+						registration[eventNames[eventIdx]][ageGroups[ageIdx]][genders[genderIdx]] = {};
+				}
+		} 
+};
+ 
 var EventSummaryHandler = 
 {
+		 
+
  		init: function() 
 		{
-		 // control of summary rows for different events		 
-		 // 100 m
-		 document.getElementById("enter100mYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('100m', true); })
-		 document.getElementById("enter100mNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('100m', false); })
-		 // 200 m
-		 document.getElementById("enter200mYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('200m', true); })
-		 document.getElementById("enter200mNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('200m', false); })
-		 // 400 m
-		 document.getElementById("enter400mYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('400m', true); })
-		 document.getElementById("enter400mNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('400m', false); })
-		 // 800 m
-		 document.getElementById("enter800mYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('800m', true); })
-		 document.getElementById("enter800mNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('800m', false); })
-		 // 1500 m
-		 document.getElementById("enter1500mYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('1500m', true); })
-		 document.getElementById("enter1500mNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('1500m', false); })
-		 // 3000 m
-		 document.getElementById("enter3000mYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('3000m', true); })
-		 document.getElementById("enter3000mNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('3000m', false); })
-		 // High Jump
-		 document.getElementById("enterHighJumpYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('HighJump', true); })
-		 document.getElementById("enterHighJumpNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('HighJump', false); })
-		 // Long Jump
-		 document.getElementById("enterLongJumpYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('LongJump', true); })
-		 document.getElementById("enterLongJumpNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('LongJump', false); })
-		 // Triple Jump
-		 document.getElementById("enterTripleJumpYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('TripleJump', true); })
-		 document.getElementById("enterTripleJumpNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('TripleJump', false); })
-		 // Shot Put 
-		 document.getElementById("enterShotPutYes").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('ShotPut', true); })
-		 document.getElementById("enterShotPutNo").onclick = (function() { EventSummaryHandler.setProperClassOnEventSummary('ShotPut', false); })
+		 // control of summary rows for different events	
+		 // Assumes that, for each event X, there is a radio button
+		 //   (*) with options called 'enterXYes' and 'enterXNo'  	 
+		 for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
+		 		 var eventName = eventNames[eventIdx];
+				 var elt = document.getElementById("enter" + eventName + "Yes");
+				 // I use closures to encapsulate with the callback function the current environment 
+		 		 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.setProperClassOnEventSummary(currentEventName, true); } })(eventName); 
+				 var elt = document.getElementById("enter" + eventName + "No");
+		 		 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.setProperClassOnEventSummary(currentEventName, false); } })(eventName); 
+		 }
 		 // CHANGE STYLE OF 'summaryShotPut'
 		 // control of checkboxes showing 'tables' to enter athletes
 		 document.getElementById("show100m").onclick = (function() { EventSummaryHandler.toggleEventTable('100m'); })
@@ -57,9 +55,10 @@ var EventSummaryHandler =
 
 
 		// puts appropriate style on event's summary row
+		// I assume the row for an event X is called 'summaryX'
 		setProperClassOnEventSummary: function(eventName, entering)
 		{
-		 var rowName = "summary" + eventName
+		 var rowName = "summary" + eventName;
 		 if (entering) 
 		 		document.getElementById(rowName).setAttribute("class", "incompleteEvent")
 		 else
