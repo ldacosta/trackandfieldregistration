@@ -28,29 +28,21 @@ var EventSummaryHandler =
 
  		init: function() 
 		{
-		 // control of summary rows for different events	
-		 // Assumes that, for each event X, there is a radio button
-		 //   (*) with options called 'enterXYes' and 'enterXNo'  	 
+ 	   // NB: EVERYWHERE, I use closures to encapsulate with the callback function the current environment 
 		 for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
 		 		 var eventName = eventNames[eventIdx];
+		 		 // control of summary rows for different events	
+		 		 // Assumes that, for each event X, there is a radio button
+		 		 //   (*) with options called 'enterXYes' and 'enterXNo'  	 
 				 var elt = document.getElementById("enter" + eventName + "Yes");
-				 // I use closures to encapsulate with the callback function the current environment 
 		 		 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.setProperClassOnEventSummary(currentEventName, true); } })(eventName); 
 				 var elt = document.getElementById("enter" + eventName + "No");
 		 		 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.setProperClassOnEventSummary(currentEventName, false); } })(eventName); 
+				 // control of checkboxes showing 'tables' to enter athletes
+				 // Assumption: the checkbox for event 'X' is called 'showX'
+				 var elt = document.getElementById("show" + eventName);
+				 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.toggleEventTable(currentEventName); } })(eventName);
 		 }
-		 // CHANGE STYLE OF 'summaryShotPut'
-		 // control of checkboxes showing 'tables' to enter athletes
-		 document.getElementById("show100m").onclick = (function() { EventSummaryHandler.toggleEventTable('100m'); })
-		 document.getElementById("show200m").onclick = (function() { EventSummaryHandler.toggleEventTable('200m'); })
-		 document.getElementById("show400m").onclick = (function() { EventSummaryHandler.toggleEventTable('400m'); })
-		 document.getElementById("show800m").onclick = (function() { EventSummaryHandler.toggleEventTable('800m'); })
-		 document.getElementById("show1500m").onclick = (function() { EventSummaryHandler.toggleEventTable('1500m'); })
-		 document.getElementById("show3000m").onclick = (function() { EventSummaryHandler.toggleEventTable('3000m'); })
-		 document.getElementById("showHighJump").onclick = (function() { EventSummaryHandler.toggleEventTable('HighJump'); })
-		 document.getElementById("showLongJump").onclick = (function() { EventSummaryHandler.toggleEventTable('LongJump'); })
-		 document.getElementById("showTripleJump").onclick = (function() { EventSummaryHandler.toggleEventTable('TripleJump'); })
-		 document.getElementById("showShotPut").onclick = (function() { EventSummaryHandler.toggleEventTable('ShotPut'); })
 		}, 
 
 
@@ -77,4 +69,5 @@ var EventSummaryHandler =
 
 };
 
+// register stuff with 'Core' library:
 Core.start(EventSummaryHandler);
