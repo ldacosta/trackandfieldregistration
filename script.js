@@ -10,7 +10,6 @@ var eventNames = ["100m","200m","400m","800m","1500m","3000m","HighJump","LongJu
 var ageGroups = ["midget", "atom", "bantam"];
 var genders = ["boys", "girls"];
 // hashtable containing all registrations. 
-// Let's initialize the whole thing.
 var registration = {}; 
 for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
 		registration[eventNames[eventIdx]] = {};
@@ -22,12 +21,18 @@ for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
 		} 
 };
  
+// Hashtable containing information of is this event being filled or not:
+var registeringEvents = {}; 
+for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
+		registeringEvents[eventNames[eventIdx]] = true;
+};
+
 var EventSummaryHandler = 
 {
-		 
 
  		init: function() 
 		{
+		 // Initialization of handlers for controls
  	   // NB: EVERYWHERE, I use closures to encapsulate with the callback function the current environment 
 		 for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
 		 		 var eventName = eventNames[eventIdx];
@@ -35,27 +40,55 @@ var EventSummaryHandler =
 		 		 // Assumes that, for each event X, there is a radio button
 		 		 //   (*) with options called 'enterXYes' and 'enterXNo'  	 
 				 var elt = document.getElementById("enter" + eventName + "Yes");
-		 		 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.setProperClassOnEventSummary(currentEventName, true); } })(eventName); 
+		 		 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.enteringEvent(currentEventName, true); } })(eventName); 
 				 var elt = document.getElementById("enter" + eventName + "No");
-		 		 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.setProperClassOnEventSummary(currentEventName, false); } })(eventName); 
+		 		 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.enteringEvent(currentEventName, false); } })(eventName); 
 				 // control of checkboxes showing 'tables' to enter athletes
 				 // Assumption: the checkbox for event 'X' is called 'showX'
 				 var elt = document.getElementById("show" + eventName);
 				 elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.toggleEventTable(currentEventName); } })(eventName);
 		 }
+		 // Reading saved information (locally). Fills up 'registration' structure
+		 EventSummaryHandler.readSavedRegistration();
+		 // Once I have the info, fill up the summary table accordingly
+		 for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
+		 		 var eventName = eventNames[eventIdx];
+		 		 EventSummaryHandler.enteringEvent(eventName, registeringEvents[eventName]);
+		 };
+		 
+		 
 		}, 
 
 
-		// puts appropriate style on event's summary row
-		// I assume the row for an event X is called 'summaryX'
-		setProperClassOnEventSummary: function(eventName, entering)
+		// 
+		enteringEvent: function(eventName, entering) 
 		{
-		 var rowName = "summary" + eventName;
-		 if (entering) 
-		 		document.getElementById(rowName).setAttribute("class", "incompleteEvent")
-		 else
-		 		document.getElementById(rowName).setAttribute("class", "toIgnoreEvent")
-		},
+				 // puts appropriate style on event's summary row
+				 // I assume the row for an event X is called 'summaryX'
+		 		 var rowName = "summary" + eventName;
+		 		 if (entering) {				 
+						document.getElementById("enter" + eventName + "Yes").checked = true;
+						document.getElementById(rowName).setAttribute("class", "incompleteEvent")
+						// TOOOOOOOOOOOOOOOOOOOOODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+						document.getElementById(rowName + "Athletes").innerHTML = "FILL THIS UP, LUIS!!!!!!!!!!!!!!!!!!!!"
+				 }
+				 else {
+						document.getElementById("enter" + eventName + "No").checked = true;
+		 				document.getElementById(rowName).setAttribute("class", "toIgnoreEvent");
+						document.getElementById(rowName + "Athletes").innerHTML = "NOT ENTERING"
+				 		if (document.getElementById("show" + eventName).checked) {
+							 document.getElementById("show" + eventName).checked = false;
+							 EventSummaryHandler.toggleEventTable(eventName);
+						}
+				 }
+				 document.getElementById("show" + eventName).disabled = !entering;
+		}, 
+		 
+		// Reads locally available registration
+		readSavedRegistration: function()
+		{
+		 // for now, nothing
+		}, 
 		
 		// shows/hide table of a specific event, to enter athletes
 		toggleEventTable: function(eventName) 
