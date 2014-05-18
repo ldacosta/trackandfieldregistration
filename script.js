@@ -12,11 +12,11 @@ var genders = ["boys", "girls"];
 // hashtable containing all registrations. 
 var registration = {}; 
 for (var eventIdx = 0; eventIdx < eventNames.length; eventIdx++) {
-		registration[eventNames[eventIdx]] = {};
+		registration[eventNames[eventIdx]] = [];
 		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
-				registration[eventNames[eventIdx]][ageGroups[ageIdx]] = {};
+				registration[eventNames[eventIdx]][ageGroups[ageIdx]] = [];
 				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
-						registration[eventNames[eventIdx]][ageGroups[ageIdx]][genders[genderIdx]] = {};
+						registration[eventNames[eventIdx]][ageGroups[ageIdx]][genders[genderIdx]] = [];
 				}
 		} 
 };
@@ -69,8 +69,15 @@ var EventSummaryHandler =
 		 		 if (entering) {				 
 						document.getElementById("enter" + eventName + "Yes").checked = true;
 						document.getElementById(rowName).setAttribute("class", "incompleteEvent")
-						// TOOOOOOOOOOOOOOOOOOOOODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-						document.getElementById(rowName + "Athletes").innerHTML = "FILL THIS UP, LUIS!!!!!!!!!!!!!!!!!!!!"
+						
+						var str = "";
+        		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
+        				str += ageGroups[ageIdx] + "=>"; 
+        				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+										str += registration[eventName][ageGroups[ageIdx]][genders[genderIdx]].length + " " + genders[genderIdx] + ",";
+        				}
+        		} 
+						document.getElementById(rowName + "Athletes").innerHTML = str;
 				 }
 				 else {
 						document.getElementById("enter" + eventName + "No").checked = true;
