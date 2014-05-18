@@ -70,13 +70,15 @@ var EventSummaryHandler =
 						document.getElementById("enter" + eventName + "Yes").checked = true;
 						document.getElementById(rowName).setAttribute("class", "incompleteEvent")
 						
-						var str = "";
+						var str = "<ul>";
         		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
-        				str += ageGroups[ageIdx] + "=>"; 
+        				str += "<li>" + ageGroups[ageIdx] + "=>"; 
         				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
 										str += registration[eventName][ageGroups[ageIdx]][genders[genderIdx]].length + " " + genders[genderIdx] + ",";
         				}
+								str += "</li>"
         		} 
+						str += "</ul>"
 						document.getElementById(rowName + "Athletes").innerHTML = str;
 				 }
 				 else {
