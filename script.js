@@ -70,16 +70,29 @@ var EventSummaryHandler =
 						document.getElementById("enter" + eventName + "Yes").checked = true;
 						document.getElementById(rowName).setAttribute("class", "incompleteEvent")
 						
+						var howManyAthletesEntered = 0;
 						var str = "<ul>";
         		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
         				str += "<li>" + ageGroups[ageIdx] + "=>"; 
         				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
-										str += registration[eventName][ageGroups[ageIdx]][genders[genderIdx]].length + " " + genders[genderIdx] + ",";
+										var athletesInAgeGroup = registration[eventName][ageGroups[ageIdx]][genders[genderIdx]].length; 
+										str +=  athletesInAgeGroup + " " + genders[genderIdx] + ",";
+										howManyAthletesEntered += athletesInAgeGroup;
         				}
 								str += "</li>"
         		} 
 						str += "</ul>"
 						document.getElementById(rowName + "Athletes").innerHTML = str;
+						// 
+						if (howManyAthletesEntered == 0)
+							 document.getElementById(rowName).setAttribute("class", "emptyEvent")
+						else if (howManyAthletesEntered == ageGroups.length * genders.length * 4) // 4 athletes per gender per age-group 
+							 document.getElementById(rowName).setAttribute("class", "completeEvent")
+						else
+							 document.getElementById(rowName).setAttribute("class", "incompleteEvent")
+
+							 
+							 
 				 }
 				 else {
 						document.getElementById("enter" + eventName + "No").checked = true;
