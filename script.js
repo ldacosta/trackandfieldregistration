@@ -137,6 +137,7 @@ var HTMLGenerator =
         };
     },
 
+	
     // 
     createTablesForEventEntries: function(eventId)
     {
@@ -290,6 +291,27 @@ var MeetEventSummaryHandler =
 
 var MeetEventRegistrationHandler = 
 {
+
+	init: function()
+	{
+		MeetEventRegistrationHandler.fillGlobalRegistrationFlags()
+	},
+	
+	fillGlobalRegistrationFlags: function()
+	{
+		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
+			for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+				for (var eventIdx = 0, registering = false; !registering && (eventIdx < meetEvents.length); eventIdx++) {
+					registering = registeringEvents[eventId][ageGroups[ageIdx]][genders[genderIdx]];
+				}
+				alert(ageGroups[ageIdx] + genders[genderIdx]);
+				var eventRegisteringCheckbox = document.getElementById(ageGroups[ageIdx] + genders[genderIdx]);
+				eventRegisteringCheckbox.checked = registering;
+			}
+		}
+    }, 
+	
+
 	// shows/hide table of a specific event, to enter athletes
 	toggleEventTable: function(eventName) 
 	{
@@ -300,7 +322,7 @@ var MeetEventRegistrationHandler =
 			lTable.style.display = (lTable.style.display == "table") ? "none" : "table";
 	} 
 
-} 
+}; 
 
 // Create interface:
 Core.start(HTMLGenerator);
@@ -308,5 +330,6 @@ Core.start(HTMLGenerator);
 Core.start(EventHandlers);
 Core.start(LocalInfoLoader);
 Core.start(MeetEventSummaryHandler);
+Core.start(MeetEventRegistrationHandler);
 
 
