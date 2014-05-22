@@ -35,11 +35,19 @@ h2 {
     margin: 0;
     padding: 2px;
     padding-left: 14px;
+    border-bottom-style: solid;
+    border-bottom-width: 0.25em;
+    border-bottom-color: #7171FF;
 }
 
 h3 {
-    color: #999;
+    color: white;
+    background-color: #7171FF;
+    margin: 0;
     font-size: 1.25em;
+    border-bottom-style: solid;
+    border-bottom-width: 0.25em;
+    border-bottom-color: #9494FF;
 }
 
 img {
