@@ -310,10 +310,15 @@ var MeetEventRegistrationHandler =
 	updateEntry: function(eventId, ageGroup, gender, pos, value)
 	{
 		// alert("eventId: " + eventId + ", ageGroup: " + ageGroup + ", gender: " + gender + ", pos: " + pos + "==>" + value);
-		if (registration[eventId][ageGroup][gender].length <= pos)
-			registration[eventId][ageGroup][gender].push(value);
-		else
-			registration[eventId][ageGroup][gender].splice(pos, 1, value);	
+		var toAdd = {"value": value, "error": ""};
+		if ((value != "") && (registration[eventId][ageGroup][gender].length <= pos))
+			registration[eventId][ageGroup][gender].push(toAdd);
+		else {
+			if (value == "")
+				registration[eventId][ageGroup][gender].splice(pos, 1);
+			else
+				registration[eventId][ageGroup][gender].splice(pos, 1, toAdd);
+		}
 		// alert(registration[eventId][ageGroup][gender]);
 		MeetEventRegistrationHandler.fillEventRegistration(eventId);
 		MeetEventSummaryHandler.fillEventSummary(eventId);
@@ -379,7 +384,7 @@ var MeetEventRegistrationHandler =
 								var inputTextId = eventId + ageGroups[ageGroupIdx] + genders[genderIdx] + i;
 								var inputText = document.getElementById(inputTextId);
 								if (registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]].length >= i + 1)
-									inputText.value = registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]][i];
+									inputText.value = registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]][i]["value"];
 								else
 									inputText.value = "";
 							}
