@@ -50,59 +50,11 @@ var LocalInfoLoader =
         LocalInfoLoader.readSavedRegistration();
     }, 
 
-    // 
-		
-		// 
-		enteringEvent: function(eventName, entering) 
-		{
-				 // puts appropriate style on event's summary row
-				 // I assume the row for an event X is called 'summaryX'
-		 		 var rowName = "summary" + eventName;
-		 		 if (entering) {				 
-						document.getElementById("enter" + eventName + "Yes").checked = true;
-						document.getElementById(rowName).setAttribute("class", "incompleteEvent")
-						
-						var howManyAthletesEntered = 0;
-						var str = "<ul>";
-        		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
-        				str += "<li>" + ageGroups[ageIdx] + "=>"; 
-        				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
-										var athletesInAgeGroup = registration[eventName][ageGroups[ageIdx]][genders[genderIdx]].length; 
-										str +=  athletesInAgeGroup + " " + genders[genderIdx] + ",";
-										howManyAthletesEntered += athletesInAgeGroup;
-        				}
-								str += "</li>"
-        		} 
-						str += "</ul>"
-						document.getElementById(rowName + "Athletes").innerHTML = str;
-						// 
-						if (howManyAthletesEntered == 0)
-							 document.getElementById(rowName).setAttribute("class", "emptyEvent")
-						else if (howManyAthletesEntered == ageGroups.length * genders.length * 4) // 4 athletes per gender per age-group 
-							 document.getElementById(rowName).setAttribute("class", "completeEvent")
-						else
-							 document.getElementById(rowName).setAttribute("class", "incompleteEvent")
-
-							 
-							 
-				 }
-				 else {
-						document.getElementById("enter" + eventName + "No").checked = true;
-		 				document.getElementById(rowName).setAttribute("class", "toIgnoreEvent");
-						document.getElementById(rowName + "Athletes").innerHTML = "NOT ENTERING"
-				 		if (document.getElementById("show" + eventName).checked) {
-							 document.getElementById("show" + eventName).checked = false;
-							 EventSummaryHandler.toggleEventTable(eventName);
-						}
-				 }
-				 document.getElementById("show" + eventName).disabled = !entering;
-		}, 
-		 
-		// Reads locally available registration
-		readSavedRegistration: function()
-		{
-		 // for now, nothing
-		}, 
+	// Reads locally available registration
+	readSavedRegistration: function()
+	{
+	 // for now, nothing
+	}, 
 		
 };
 
@@ -174,10 +126,12 @@ var HTMLGenerator =
 						tableAsStr += "<tr>";
 						for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
 							tableAsStr += "<td width=\"50%\" align=\"center\" bgcolor=\"#4D4D4D\">";
-							tableAsStr += "<table width=\"100%\">";
+							var registrationTableId = "registration_" + meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx];
+							tableAsStr += "<table width=\"100%\" id=\"" + registrationTableId + "\">";
 							tableAsStr += "<tr><th align=\"left\">Last Name, First Name</th></tr>";
 							for (var i = 0; i < meetEvents[eventIdx]["numEntriesPerGender"]; i++) {
-								tableAsStr += "<tr><td><input type=\"text\" name=\"name\" size=\"100%\" maxlength=\"50\" placeholder=\"Last Name, First Name\" class=\"goodinput\"/></td></tr>";
+								var inputTextId = meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx] + i;
+								tableAsStr += "<tr><td><input type=\"text\" id=\"" + inputTextId + "\" size=\"100%\" maxlength=\"50\" placeholder=\"Last Name, First Name\" class=\"goodinput\"/></td></tr>";
 							}
 							tableAsStr += "</table>";
 							tableAsStr += "</td>";
@@ -248,23 +202,29 @@ var EventHandlers =
         // NB: EVERYWHERE, I use closures to encapsulate with the callback function the current environment 
         for (var eventIdx = 0; eventIdx < meetEvents.length; eventIdx++) {
             var eventId = meetEvents[eventIdx]["id"];
-            // control of summary rows for different events	
-            // Assumes that, for each event X, there is a radio button
-            //   (*) with options called 'enterXYes' and 'enterXNo'  	 
-            /*
-                var elt = document.getElementById("enter" + eventId + "Yes");
-                elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.enteringEvent(currentEventName, true); } })(eventId); 
-                var elt = document.getElementById("enter" + eventId + "No");
-                elt.onclick = (function(currentEventName) { return function() { EventSummaryHandler.enteringEvent(currentEventName, false); } })(eventId);
-            */ 
-            // control of checkboxes showing 'tables' to enter athletes
-            // Assumption: the checkbox for event 'X' is called 'showX'
+            // control of checkboxes showing 'tables' to enter athletes (the checkbox for event 'X' is called 'showX').
             var elt = document.getElementById("show" + eventId);
             elt.onclick = (function(currentEventName) { return function() { MeetEventRegistrationHandler.toggleEventTable(currentEventName); } })(eventId);
-        }
+			if (meetEvents[eventIdx]["byCategories"]) {
+				for (ageGroupIdx = 0; ageGroupIdx <  ageGroups.length; ageGroupIdx++) {
+					for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+						var checkboxId = meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx];
+						var elt = document.getElementById(checkboxId);
+						elt.onclick = (function (eventId, ageGroup, gender) { return function() { MeetEventRegistrationHandler.registeringEvent(eventId, ageGroup, gender, this.checked); } })(eventId, ageGroups[ageGroupIdx], genders[genderIdx]);
+					}
+				}
+			}
+		}
+		//
+		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
+			for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+				var checkboxId = ageGroups[ageIdx] + genders[genderIdx];
+				var elt = document.getElementById(checkboxId);
+				elt.onclick = (function (ageGroup, gender) { return function() { MeetEventRegistrationHandler.registeringAgeGroupAndGender(ageGroup, gender, this.checked); } })(ageGroups[ageIdx], genders[genderIdx]);
+			}
+		}
     },
 }
-
 
 var MeetEventSummaryHandler = 
 {
@@ -286,32 +246,47 @@ var MeetEventSummaryHandler =
         else {
             // OK. by this point we know the row of the event exists. Let's
             // fill up the information
-            var howManyAthletesEntered = 0;
             for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
-                var str = "";
-                var athletesInAgeGroup = 0;
-                for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
-                    if (registeringEvents[eventId][ageGroups[ageIdx]][genders[genderIdx]]) {
-                        athletesInAgeGroup = registration[eventId][ageGroups[ageIdx]][genders[genderIdx]].length; 
-                        str +=  athletesInAgeGroup + " " + genders[genderIdx] + ",";
-                        howManyAthletesEntered += athletesInAgeGroup;
-                        if (athletesInAgeGroup == 0) {
-                            str = "No Entries";
-                            eventRow.cells[ageIdx + 1].setAttribute("class", "emptyEvent");
-                        }
-                        else if (athletesInAgeGroup >= genders.length * 4) {
-                            eventRow.cells[ageIdx + 1].setAttribute("class", "completeEvent");
-                        }
-                        else {
-                            eventRow.cells[ageIdx + 1].setAttribute("class", "incompleteEvent");
-                        }
-                    }
-                    else {
-                        eventRow.cells[ageIdx + 1].setAttribute("class", "completeEvent");
-                        str = "NOT ENTERING";
-                    }
-                }
-                 eventRow.cells[ageIdx + 1].innerHTML = str;
+				var cellIdx = ageIdx + 1; // because (0) is the name of the event.
+				var regByGender = [];
+				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+					if (registeringEvents[eventId][ageGroups[ageIdx]][genders[genderIdx]])
+						regByGender[genderIdx] = registration[eventId][ageGroups[ageIdx]][genders[genderIdx]].length;
+					else
+						regByGender[genderIdx] = -1;
+				}
+				var allZero = true, allMAX = true, allNotRegistering = true;
+				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+					if (regByGender[genderIdx] != -1) allNotRegistering = false;
+					if (regByGender[genderIdx] != 4) allMAX = false;
+					if (regByGender[genderIdx] != 0) allZero = false;
+				}
+				// set style
+				if (allNotRegistering) {
+					eventRow.cells[cellIdx].setAttribute("class", "completeEvent");
+				}
+				else if (allMAX) {
+					eventRow.cells[cellIdx].setAttribute("class", "completeEvent");
+				}
+				else if (allZero) {
+					eventRow.cells[cellIdx].setAttribute("class", "emptyEvent");
+				}
+				else {
+					eventRow.cells[cellIdx].setAttribute("class", "incompleteEvent");
+				}
+				// set message
+				var str = "";
+				if (allNotRegistering) {
+					str = "NOT REGISTERING"; 
+				}
+				else {
+					for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+						if (genderIdx > 0) str += ",";
+						if (regByGender[genderIdx] == -1) str += "not registering " + genders[genderIdx];
+						else str += regByGender[genderIdx] + " " + genders[genderIdx];
+					}
+				}
+				eventRow.cells[cellIdx].innerHTML = str;
             }
         }
     }, 
@@ -325,11 +300,25 @@ var MeetEventRegistrationHandler =
 		MeetEventRegistrationHandler.fillGlobalRegistrationFlags()
 	},
 	
+	// Manages the change of status in the registration or not of athletes of a certain category + gender
+	registeringAgeGroupAndGender: function(ageGroup, gender, registering)
+	{
+		// alert("registeringAgeGroupAndGender ==> ageGroup = " + ageGroup + "gender = " + gender + "registering = " + registering);
+		for (var eventIdx = 0; eventIdx < meetEvents.length; eventIdx++) {
+			var eventId = meetEvents[eventIdx]["id"];
+			registeringEvents[eventId][ageGroup][gender] = registering;
+			MeetEventRegistrationHandler.fillEventRegistration(eventId);
+			MeetEventSummaryHandler.fillEventSummary(eventId);
+		}		
+	}, 
+
+	// Fills up the global registration flags, using the information of the data structures
 	fillGlobalRegistrationFlags: function()
 	{
 		for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
 			for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
 				for (var eventIdx = 0, registering = false; !registering && (eventIdx < meetEvents.length); eventIdx++) {
+					var eventId = meetEvents[eventIdx]["id"];
 					registering = registeringEvents[eventId][ageGroups[ageIdx]][genders[genderIdx]];
 				}
 				var eventRegisteringCheckbox = document.getElementById(ageGroups[ageIdx] + genders[genderIdx]);
@@ -338,7 +327,15 @@ var MeetEventRegistrationHandler =
 		}
     }, 
 	
-
+	registeringEvent: function(eventId, ageGroup, gender, registering)
+	{
+		// alert("salut; registering = eventId = " + eventId + ", ageGroup = " + ageGroup + ", gender = " + gender + ", registering? => " + registering);
+		registeringEvents[eventId][ageGroup][gender] = registering;
+		
+		MeetEventRegistrationHandler.fillEventRegistration(eventId);
+		MeetEventSummaryHandler.fillEventSummary(eventId);
+	},
+	
 	//
 	fillEventRegistration: function(eventId)
 	{
@@ -356,7 +353,16 @@ var MeetEventRegistrationHandler =
 						if (registeringCheckbox == null)
 							alert("No checkbox with id [" + checkboxId + "]!!");
 						else {
-							registeringCheckbox.checked = registeringEvents[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]];
+							var registering = registeringEvents[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]];
+							registeringCheckbox.checked = registering;
+							// show/hide athletes table
+							var registrationTableId = "registration_" + meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx];
+							var lTable = document.getElementById(registrationTableId);
+							if (lTable == null)
+								alert("There is no registration table with id [" + registrationTableId + "]");
+							else {
+								lTable.style.display = (!registering) ? "none" : "table";
+							}
 						}
 					}
 				}

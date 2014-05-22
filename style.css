@@ -105,10 +105,16 @@ table {
 
 [class="badinput"]
 {
- color: red;
- background:yellow;
+	color: red;
+	background:yellow;
     font-style: italic;
     font-size: 1em;
+}
+
+[class="invisibleinput"]
+{
+	color: black;
+	background:black;
 }
 
 [class="goodinput"]
