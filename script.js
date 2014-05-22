@@ -205,12 +205,19 @@ var EventHandlers =
             // control of checkboxes showing 'tables' to enter athletes (the checkbox for event 'X' is called 'showX').
             var elt = document.getElementById("show" + eventId);
             elt.onclick = (function(currentEventName) { return function() { MeetEventRegistrationHandler.toggleEventTable(currentEventName); } })(eventId);
+			// 
 			if (meetEvents[eventIdx]["byCategories"]) {
 				for (ageGroupIdx = 0; ageGroupIdx <  ageGroups.length; ageGroupIdx++) {
 					for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
 						var checkboxId = meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx];
 						var elt = document.getElementById(checkboxId);
 						elt.onclick = (function (eventId, ageGroup, gender) { return function() { MeetEventRegistrationHandler.registeringEvent(eventId, ageGroup, gender, this.checked); } })(eventId, ageGroups[ageGroupIdx], genders[genderIdx]);
+						// 
+						for (var i = 0; i < meetEvents[eventIdx]["numEntriesPerGender"]; i++) {
+							var inputTextId = meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx] + i;
+							var elt = document.getElementById(inputTextId);
+							elt.ondeactivate = (function (eventId, ageGroup, gender, pos) { return function() { MeetEventRegistrationHandler.updateEntry(eventId, ageGroup, gender, pos, this.value); } })(meetEvents[eventIdx]["id"], ageGroups[ageGroupIdx], genders[genderIdx], i); 
+						}
 					}
 				}
 			}
@@ -300,6 +307,18 @@ var MeetEventRegistrationHandler =
 		MeetEventRegistrationHandler.fillGlobalRegistrationFlags()
 	},
 	
+	updateEntry: function(eventId, ageGroup, gender, pos, value)
+	{
+		// alert("eventId: " + eventId + ", ageGroup: " + ageGroup + ", gender: " + gender + ", pos: " + pos + "==>" + value);
+		if (registration[eventId][ageGroup][gender].length <= pos)
+			registration[eventId][ageGroup][gender].push(value);
+		else
+			registration[eventId][ageGroup][gender].splice(pos, 1, value);	
+		// alert(registration[eventId][ageGroup][gender]);
+		MeetEventRegistrationHandler.fillEventRegistration(eventId);
+		MeetEventSummaryHandler.fillEventSummary(eventId);
+	},
+	
 	// Manages the change of status in the registration or not of athletes of a certain category + gender
 	registeringAgeGroupAndGender: function(ageGroup, gender, registering)
 	{
@@ -344,17 +363,26 @@ var MeetEventRegistrationHandler =
 			alert("I have no clue what is table for event [" + eventId + "]");
 		else {
 			var eventIdx = EventsStructures.findEventIdx(eventId);
-			// first, fill the "registering" flag
 			if (meetEvents[eventIdx]["byCategories"]) {
 				for (ageGroupIdx = 0; ageGroupIdx <  ageGroups.length; ageGroupIdx++) {
 					for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
 						var checkboxId = meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx];
+						// first, fill the "registering" flag
 						var registeringCheckbox = document.getElementById(checkboxId);
 						if (registeringCheckbox == null)
 							alert("No checkbox with id [" + checkboxId + "]!!");
 						else {
 							var registering = registeringEvents[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]];
 							registeringCheckbox.checked = registering;
+							//
+							for (var i = 0; i < meetEvents[eventIdx]["numEntriesPerGender"]; i++) {
+								var inputTextId = eventId + ageGroups[ageGroupIdx] + genders[genderIdx] + i;
+								var inputText = document.getElementById(inputTextId);
+								if (registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]].length >= i + 1)
+									inputText.value = registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]][i];
+								else
+									inputText.value = "";
+							}
 							// show/hide athletes table
 							var registrationTableId = "registration_" + meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx];
 							var lTable = document.getElementById(registrationTableId);
