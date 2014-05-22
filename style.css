@@ -15,7 +15,7 @@ p {
 
 h1 {
     color: #ffc;
-    background-color: #900;
+    background-color: #0000FF;
     font-size: 2em;
     margin: 0;
     margin-bottom: 7px;
@@ -25,21 +25,29 @@ h1 {
     letter-spacing: 0.5em;
     border-bottom-style: solid;
     border-bottom-width: 0.5em;
-    border-bottom-color: #c00;
+    border-bottom-color: #1919FF;
 }
 
 h2 {
     color: white;
-    background-color: #c00;
+    background-color: #4D4DFF;
     font-size: 1.5em;
     margin: 0;
     padding: 2px;
     padding-left: 14px;
+    border-bottom-style: solid;
+    border-bottom-width: 0.25em;
+    border-bottom-color: #7171FF;
 }
 
 h3 {
-    color: #999;
+    color: white;
+    background-color: #7171FF;
+    margin: 0;
     font-size: 1.25em;
+    border-bottom-style: solid;
+    border-bottom-width: 0.25em;
+    border-bottom-color: #9494FF;
 }
 
 img {
@@ -97,10 +105,16 @@ table {
 
 [class="badinput"]
 {
- color: red;
- background:yellow;
+	color: red;
+	background:yellow;
     font-style: italic;
     font-size: 1em;
+}
+
+[class="invisibleinput"]
+{
+	color: black;
+	background:black;
 }
 
 [class="goodinput"]
