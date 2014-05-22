@@ -129,12 +129,13 @@ var HTMLGenerator =
 {
     init: function()
     {
+		HTMLGenerator.fillGlobalRegistrationFlagsArea();
         for (var eventIdx = 0; eventIdx < meetEvents.length; eventIdx++) {
             var eventId = meetEvents[eventIdx]["id"];
             // Create summary tables
             HTMLGenerator.fillEventDetail(eventId);
             HTMLGenerator.createTablesForEventEntries(eventId);
-        };
+        };		
     },
 
 	
@@ -158,24 +159,30 @@ var HTMLGenerator =
                 if (meetEvents[eventIdx]["byCategories"]) {
                     for (ageGroupIdx = 0; ageGroupIdx <  ageGroups.length; ageGroupIdx++) {
                         // headers
-                        tableAsStr += "<tr width=\"100%\">";
+                        tableAsStr += "<tr>";
                         for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
-                            tableAsStr += "<th><a href=\"http://www.limestone.on.ca/lesaa/General/age_categories%20for%2020052006.htm\">" + ageGroups[ageGroupIdx] + "</a> " + genders[genderIdx] + "</th>";
-                            tableAsStr += "</tr>";
-                            //
-                            tableAsStr += "<tr width=\"100%\">";
-                            for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
-                                tableAsStr += "<td width=\"50%\" align=\"center\" bgcolor=\"#4D4D4D\">";
-                                tableAsStr += "<table width=\"100%\">";
-                                tableAsStr += "<tr><th align=\"left\">Last Name, First Name</th></tr>";
-                                for (var i = 0; i < meetEvents[eventIdx]["numEntriesPerGender"]; i++) {
-                                    tableAsStr += "<tr><td><input type=\"text\" name=\"name\" size=\"100%\" maxlength=\"50\" placeholder=\"Last Name, First Name\" class=\"goodinput\"/></td></tr>";
-                                }
-                                tableAsStr += "</table>";
-                                tableAsStr += "</td>";
-                            }
-                            tableAsStr += "</tr>";
-                        }
+                            tableAsStr += "<th><h3><a href=\"http://www.limestone.on.ca/lesaa/General/age_categories%20for%2020052006.htm\">" + ageGroups[ageGroupIdx] + "</a> " + genders[genderIdx] + "</h3></th>";
+						}
+                        tableAsStr += "</tr>";
+						// ask: not entering?
+                        tableAsStr += "<tr>";
+                        for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+							var checkboxId = meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx];
+                            tableAsStr += "<td align=\"center\"><strong>NOT</strong> entering athletes? Un-check this: <input type=\"checkbox\" id=\"" + checkboxId + "\"</td>";
+						}
+                        tableAsStr += "</tr>";
+						tableAsStr += "<tr>";
+						for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+							tableAsStr += "<td width=\"50%\" align=\"center\" bgcolor=\"#4D4D4D\">";
+							tableAsStr += "<table width=\"100%\">";
+							tableAsStr += "<tr><th align=\"left\">Last Name, First Name</th></tr>";
+							for (var i = 0; i < meetEvents[eventIdx]["numEntriesPerGender"]; i++) {
+								tableAsStr += "<tr><td><input type=\"text\" name=\"name\" size=\"100%\" maxlength=\"50\" placeholder=\"Last Name, First Name\" class=\"goodinput\"/></td></tr>";
+							}
+							tableAsStr += "</table>";
+							tableAsStr += "</td>";
+						}
+						tableAsStr += "</tr>";
                     }
                 }
                 else { // this event is OPEN
@@ -209,6 +216,27 @@ var HTMLGenerator =
         }
     }, 
 
+	fillGlobalRegistrationFlagsArea: function()
+	{
+		var globalRegistrationCell = document.getElementById("globalRegistrationFlagsCell");
+		if (globalRegistrationCell == null)
+			alert("Area for Global Flags does not exist!");
+		else {
+			var htmlStr = "<table width=\"100%\">";
+			htmlStr += "<tr>";
+			for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
+				htmlStr += "<td align=\"left\" valign=\"top\">";
+				htmlStr += ageGroups[ageIdx] + ": ";
+				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+					htmlStr += "<input type=\"checkbox\" id=\"" + (ageGroups[ageIdx] + genders[genderIdx]) + "\">" + genders[genderIdx];
+				}
+				htmlStr += "</td>";
+			}
+			htmlStr += "</tr>";
+			htmlStr += "</table>";
+			globalRegistrationCell.innerHTML = htmlStr;
+		}
+	},
 }; 
 
 var EventHandlers = 
@@ -304,7 +332,6 @@ var MeetEventRegistrationHandler =
 				for (var eventIdx = 0, registering = false; !registering && (eventIdx < meetEvents.length); eventIdx++) {
 					registering = registeringEvents[eventId][ageGroups[ageIdx]][genders[genderIdx]];
 				}
-				alert(ageGroups[ageIdx] + genders[genderIdx]);
 				var eventRegisteringCheckbox = document.getElementById(ageGroups[ageIdx] + genders[genderIdx]);
 				eventRegisteringCheckbox.checked = registering;
 			}
@@ -312,14 +339,43 @@ var MeetEventRegistrationHandler =
     }, 
 	
 
-	// shows/hide table of a specific event, to enter athletes
-	toggleEventTable: function(eventName) 
+	//
+	fillEventRegistration: function(eventId)
 	{
-		var lTable = document.getElementById(eventName);
+		var eventTable = document.getElementById(eventId);
+		if (eventTable == null)
+			alert("I have no clue what is table for event [" + eventId + "]");
+		else {
+			var eventIdx = EventsStructures.findEventIdx(eventId);
+			// first, fill the "registering" flag
+			if (meetEvents[eventIdx]["byCategories"]) {
+				for (ageGroupIdx = 0; ageGroupIdx <  ageGroups.length; ageGroupIdx++) {
+					for (genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+						var checkboxId = meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx];
+						var registeringCheckbox = document.getElementById(checkboxId);
+						if (registeringCheckbox == null)
+							alert("No checkbox with id [" + checkboxId + "]!!");
+						else {
+							registeringCheckbox.checked = registeringEvents[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]];
+						}
+					}
+				}
+			}
+		}
+		
+	},
+	
+	// shows/hide table of a specific event, to enter athletes
+	toggleEventTable: function(eventId) 
+	{
+		var lTable = document.getElementById(eventId);
 		if (lTable == null)
-			alert("I have no clue what is table for event [" + eventName + "]");
-		else
+			alert("I have no clue what is table for event [" + eventId + "]");
+		else {
 			lTable.style.display = (lTable.style.display == "table") ? "none" : "table";
+			if (lTable.style.display == "table")
+				MeetEventRegistrationHandler.fillEventRegistration(eventId);
+		}
 	} 
 
 }; 
