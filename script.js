@@ -72,6 +72,21 @@ var StructsManager = {
 		MeetEventRegistrationHandler.fillEventRegistration(eventId);
 		MeetEventSummaryHandler.fillEventSummary(eventId);
 	},
+
+	howManyAthletesRegistered: function(eventId, ageCategory, gender)
+	{
+		return registration[eventId][ageCategory][gender].length;
+	},
+
+	athleteInPosition: function(eventId, ageCategory, gender, position)
+	{
+		return registration[eventId][ageCategory][gender][position]["value"];
+	},
+	
+	errorForAthleteInPosition: function(eventId, ageCategory, gender, position)
+	{
+		return registration[eventId][ageCategory][gender][position]["error"];
+	},
 	
 };
 
@@ -295,7 +310,7 @@ var MeetEventSummaryHandler =
 				var regByGender = [];
 				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
 					if (registeringEvents[eventId][ageGroups[ageIdx]][genders[genderIdx]])
-						regByGender[genderIdx] = registration[eventId][ageGroups[ageIdx]][genders[genderIdx]].length;
+						regByGender[genderIdx] = StructsManager.howManyAthletesRegistered(eventId, ageGroups[ageIdx], genders[genderIdx]);
 					else
 						regByGender[genderIdx] = -1;
 				}
@@ -403,17 +418,12 @@ var MeetEventRegistrationHandler =
 							for (var i = 0; i < meetEvents[eventIdx]["numEntriesPerGender"]; i++) {
 								var inputTextId = eventId + ageGroups[ageGroupIdx] + genders[genderIdx] + i;
 								var inputText = document.getElementById(inputTextId);
-								if (registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]].length >= i + 1) {
-									var cellInStruct = registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]][i];
-									inputText.value = cellInStruct["value"];
-									if (cellInStruct["error"] != "") {
-										inputText.title = cellInStruct["error"];
-										inputText.setAttribute("class", "badinput");
-									}
-									else {
-										inputText.title = "";
-										inputText.setAttribute("class", "goodinput");
-									}
+								if (StructsManager.howManyAthletesRegistered(eventId, ageGroups[ageGroupIdx], genders[genderIdx]) >= i + 1) {
+									var athleteInPosition = StructsManager.athleteInPosition(eventId, ageGroups[ageGroupIdx], genders[genderIdx], i);
+									var errorForAthleteInPosition = StructsManager.errorForAthleteInPosition(eventId, ageGroups[ageGroupIdx], genders[genderIdx], i);
+									inputText.value = athleteInPosition;
+									inputText.title = errorForAthleteInPosition;
+									inputText.setAttribute("class", (errorForAthleteInPosition != "") ? "badinput": "goodinput");
 								}
 								else
 									inputText.value = "";
