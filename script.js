@@ -57,16 +57,22 @@ var StructsManager = {
 			else if (value.lastIndexOf(",") != lastFirstNameSep) { // too many commas!
 				errStr += "Only 1 ',' needed to separate last name and first name";
 			}
-		}
-		
-		var toAdd = {"value": value, "error": errStr};
-		if ((value != "") && (registration[eventId][ageGroup][gender].length <= pos))
-			registration[eventId][ageGroup][gender].push(toAdd);
-		else {
-			if (value == "")
-				registration[eventId][ageGroup][gender].splice(pos, 1);
+			// get 'Last Name' and 'First Name'
+			if (lastFirstNameSep == -1)
+				alert("Last Name: " + value + ", First Name NOT specified");
+			else {
+				var lastName = (value.substring(0, lastFirstNameSep)).trim();
+				var firstName = (value.substring(lastFirstNameSep + 1)).trim();
+			}
+			var toAdd = {"firstName": firstName, "lastName": lastName, "error": errStr};
+			if (registration[eventId][ageGroup][gender].length <= pos)
+				registration[eventId][ageGroup][gender].push(toAdd);
 			else
 				registration[eventId][ageGroup][gender].splice(pos, 1, toAdd);
+		}
+		else {
+			if (registration[eventId][ageGroup][gender].length > pos)
+				registration[eventId][ageGroup][gender].splice(pos, 1);
 		}
 		// alert(registration[eventId][ageGroup][gender]);
 		MeetEventRegistrationHandler.fillEventRegistration(eventId);
@@ -80,7 +86,8 @@ var StructsManager = {
 
 	athleteInPosition: function(eventId, ageCategory, gender, position)
 	{
-		return registration[eventId][ageCategory][gender][position]["value"];
+		var theCell = registration[eventId][ageCategory][gender][position];
+		return theCell["lastName"] + ", " + theCell["firstName"];
 	},
 	
 	errorForAthleteInPosition: function(eventId, ageCategory, gender, position)
