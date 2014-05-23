@@ -39,6 +39,39 @@ for (var eventIdx = 0; eventIdx < meetEvents.length; eventIdx++) {
 };
 
 /**
+ * Manages all structs
+*/
+var StructsManager = {
+	
+	updateEntry: function(eventId, ageGroup, gender, pos, value)
+	{
+		// alert("eventId: " + eventId + ", ageGroup: " + ageGroup + ", gender: " + gender + ", pos: " + pos + "==>" + value);
+		// let's set up the error
+		var errStr = "";
+		if (value != "") {
+			// separation of last name, first name with comma
+			if (value.indexOf(",") == -1) {
+				errStr += "Last name and first name must be separated by a ','";
+			}
+		}
+		
+		var toAdd = {"value": value, "error": errStr};
+		if ((value != "") && (registration[eventId][ageGroup][gender].length <= pos))
+			registration[eventId][ageGroup][gender].push(toAdd);
+		else {
+			if (value == "")
+				registration[eventId][ageGroup][gender].splice(pos, 1);
+			else
+				registration[eventId][ageGroup][gender].splice(pos, 1, toAdd);
+		}
+		// alert(registration[eventId][ageGroup][gender]);
+		MeetEventRegistrationHandler.fillEventRegistration(eventId);
+		MeetEventSummaryHandler.fillEventSummary(eventId);
+	},
+	
+};
+
+/**
  * Loads saved information (from local source).
 */
 var LocalInfoLoader = 
@@ -216,7 +249,7 @@ var EventHandlers =
 						for (var i = 0; i < meetEvents[eventIdx]["numEntriesPerGender"]; i++) {
 							var inputTextId = meetEvents[eventIdx]["id"] + ageGroups[ageGroupIdx] + genders[genderIdx] + i;
 							var elt = document.getElementById(inputTextId);
-							elt.ondeactivate = (function (eventId, ageGroup, gender, pos) { return function() { MeetEventRegistrationHandler.updateEntry(eventId, ageGroup, gender, pos, this.value); } })(meetEvents[eventIdx]["id"], ageGroups[ageGroupIdx], genders[genderIdx], i); 
+							elt.ondeactivate = (function (eventId, ageGroup, gender, pos) { return function() { StructsManager.updateEntry(eventId, ageGroup, gender, pos, this.value); } })(meetEvents[eventIdx]["id"], ageGroups[ageGroupIdx], genders[genderIdx], i); 
 						}
 					}
 				}
@@ -307,23 +340,6 @@ var MeetEventRegistrationHandler =
 		MeetEventRegistrationHandler.fillGlobalRegistrationFlags()
 	},
 	
-	updateEntry: function(eventId, ageGroup, gender, pos, value)
-	{
-		// alert("eventId: " + eventId + ", ageGroup: " + ageGroup + ", gender: " + gender + ", pos: " + pos + "==>" + value);
-		var toAdd = {"value": value, "error": ""};
-		if ((value != "") && (registration[eventId][ageGroup][gender].length <= pos))
-			registration[eventId][ageGroup][gender].push(toAdd);
-		else {
-			if (value == "")
-				registration[eventId][ageGroup][gender].splice(pos, 1);
-			else
-				registration[eventId][ageGroup][gender].splice(pos, 1, toAdd);
-		}
-		// alert(registration[eventId][ageGroup][gender]);
-		MeetEventRegistrationHandler.fillEventRegistration(eventId);
-		MeetEventSummaryHandler.fillEventSummary(eventId);
-	},
-	
 	// Manages the change of status in the registration or not of athletes of a certain category + gender
 	registeringAgeGroupAndGender: function(ageGroup, gender, registering)
 	{
@@ -383,8 +399,18 @@ var MeetEventRegistrationHandler =
 							for (var i = 0; i < meetEvents[eventIdx]["numEntriesPerGender"]; i++) {
 								var inputTextId = eventId + ageGroups[ageGroupIdx] + genders[genderIdx] + i;
 								var inputText = document.getElementById(inputTextId);
-								if (registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]].length >= i + 1)
-									inputText.value = registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]][i]["value"];
+								if (registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]].length >= i + 1) {
+									var cellInStruct = registration[eventId][ageGroups[ageGroupIdx]][genders[genderIdx]][i];
+									inputText.value = cellInStruct["value"];
+									if (cellInStruct["error"] != "") {
+										inputText.title = cellInStruct["error"];
+										inputText.setAttribute("class", "badinput");
+									}
+									else {
+										inputText.title = "";
+										inputText.setAttribute("class", "goodinput");
+									}
+								}
 								else
 									inputText.value = "";
 							}
