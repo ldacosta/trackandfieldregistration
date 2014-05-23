@@ -50,8 +50,12 @@ var StructsManager = {
 		var errStr = "";
 		if (value != "") {
 			// separation of last name, first name with comma
-			if (value.indexOf(",") == -1) {
+			var lastFirstNameSep = value.indexOf(",");
+			if (lastFirstNameSep == -1) {
 				errStr += "Last name and first name must be separated by a ','";
+			}
+			else if (value.lastIndexOf(",") != lastFirstNameSep) { // too many commas!
+				errStr += "Only 1 ',' needed to separate last name and first name";
 			}
 		}
 		
