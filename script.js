@@ -58,11 +58,15 @@ var StructsManager = {
 				errStr += "Only 1 ',' needed to separate last name and first name";
 			}
 			// get 'Last Name' and 'First Name'
-			if (lastFirstNameSep == -1)
-				alert("Last Name: " + value + ", First Name NOT specified");
+			var lastName = "";
+			var firstName = "";
+			if (lastFirstNameSep == -1) {
+				lastName = value;
+				firstName = "";
+			}
 			else {
-				var lastName = (value.substring(0, lastFirstNameSep)).trim();
-				var firstName = (value.substring(lastFirstNameSep + 1)).trim();
+				lastName = (value.substring(0, lastFirstNameSep)).trim();
+				firstName = (value.substring(lastFirstNameSep + 1)).trim();
 			}
 			var toAdd = {"firstName": firstName, "lastName": lastName, "error": errStr};
 			if (registration[eventId][ageGroup][gender].length <= pos)
@@ -77,6 +81,7 @@ var StructsManager = {
 		// alert(registration[eventId][ageGroup][gender]);
 		MeetEventRegistrationHandler.fillEventRegistration(eventId);
 		MeetEventSummaryHandler.fillEventSummary(eventId);
+		IssuesHandler.fillWithRegistrationInfo();
 	},
 
 	howManyAthletesRegistered: function(eventId, ageCategory, gender)
@@ -87,12 +92,27 @@ var StructsManager = {
 	athleteInPosition: function(eventId, ageCategory, gender, position)
 	{
 		var theCell = registration[eventId][ageCategory][gender][position];
-		return theCell["lastName"] + ", " + theCell["firstName"];
+		if (theCell == null) {
+			alert("No registration entry for event [" + eventId + "], category = [" + ageCategory + "], gender [" + gender + "], position [" + position + "]");
+			return "";
+		}
+		else
+			return theCell["lastName"] + ", " + theCell["firstName"];
 	},
 	
 	errorForAthleteInPosition: function(eventId, ageCategory, gender, position)
 	{
-		return registration[eventId][ageCategory][gender][position]["error"];
+		var theCell = registration[eventId][ageCategory][gender][position];
+		if (theCell == null) {
+			alert("No registration entry for event [" + eventId + "], category = [" + ageCategory + "], gender [" + gender + "], position [" + position + "]");
+			if(registration[eventId] == null) alert("it is the event!");
+			else if(registration[eventId][ageCategory] == null) alert("it is the ageCategory!");
+			else if(registration[eventId][ageCategory][gender] == null) alert("it is the gender!");
+			else alert("it is the position! Length = " + registration[eventId][ageCategory][gender].length);
+			return "";
+		}
+		else
+			return theCell["error"];
 	},
 	
 };
@@ -204,7 +224,7 @@ var HTMLGenerator =
                 c.innerHTML = tableAsStr;
             }
         }
-    },
+    },	
 
     /**
      * 
@@ -291,6 +311,49 @@ var EventHandlers =
 		}
     },
 }
+
+var IssuesHandler = {
+	
+	clean: function()
+	{
+		var issuesTable = document.getElementById("issuesTable");
+		for (var i = issuesTable.rows.length - 1; i > -1; i--)
+			issuesTable.deleteRow(i);
+	},
+	
+	addMsg: function(msg)
+	{
+		var issuesTable = document.getElementById("issuesTable");
+		if (issuesTable == null) alert("No 'issues' zone!!");
+		else {
+			var msgRow = issuesTable.insertRow(issuesTable.rows.length);
+			var c = msgRow.insertCell(0)	
+			c.innerHTML = msg;
+		}
+	},
+	
+	fillWithRegistrationInfo: function()
+	{
+		IssuesHandler.clean();
+		for (var eventIdx = 0; eventIdx < meetEvents.length; eventIdx++) {
+			var eventId = meetEvents[eventIdx]["id"];
+			for (var ageIdx = 0; ageIdx < ageGroups.length; ageIdx++) {
+				for (var genderIdx = 0; genderIdx < genders.length; genderIdx++) {
+					for (var position = 0; position < StructsManager.howManyAthletesRegistered(eventId, ageGroups[ageIdx], genders[genderIdx]); position++) {
+						var theErrMsg = (StructsManager.errorForAthleteInPosition(eventId, ageGroups[ageIdx], genders[genderIdx], position)).trim();
+						var errStr = "";
+						if (theErrMsg != "") {
+							errStr = "<strong>" + meetEvents[eventIdx]["display"] + " " + ageGroups[ageIdx] + " " + genders[genderIdx] + ", athlete " + (position + 1) + "</strong>";
+							errStr += ": " + theErrMsg;
+						}
+						IssuesHandler.addMsg(errStr);
+					}
+				}
+			} 
+		};
+	}, 
+	
+};
 
 var MeetEventSummaryHandler = 
 {
